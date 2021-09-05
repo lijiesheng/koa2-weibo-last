@@ -7,10 +7,6 @@ router.get('/', async (ctx, next) => {
   })
 })
 
-router.get('/strin', async (ctx, next) => {
-  ctx.body = 'koa3 string'
-})
-
 router.get('/string', async (ctx, next) => {
   ctx.body = 'koa2 string'
 })
@@ -18,6 +14,26 @@ router.get('/string', async (ctx, next) => {
 router.get('/json', async (ctx, next) => {
   ctx.body = {
     title: 'koa2 json'
+  }
+})
+
+
+router.get('/profile/:userName', async (ctx, next) => {
+  let params = ctx.params;
+  console.log("params====>",params);
+  ctx.body = {
+    title: 'this is a profile',
+    userName : params.userName
+  }
+})
+
+router.get('/loadMore/:userName/:pageIndex',async (ctx, next) => {
+  let params = ctx.params;
+  console.log("params====>",params);
+  ctx.body = {
+    title: 'this is a profile',
+    userName : params.userName,
+    pageIndex : params.pageIndex
   }
 })
 
