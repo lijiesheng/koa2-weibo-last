@@ -30,8 +30,18 @@ router.get('/string', async (ctx, next) => {
 })
 
 router.get('/json', async (ctx, next) => {
+  const session = ctx.session;
+
+  // 页面查看次数
+  if (session.viewNum == null) {
+    session.viewNum = 0;
+  }
+  session.viewNum++;
+
+  // 返回
   ctx.body = {
-    title: 'koa2 json'
+    title: 'koa2 json',
+    viewNum : session.viewNum
   }
 })
 
