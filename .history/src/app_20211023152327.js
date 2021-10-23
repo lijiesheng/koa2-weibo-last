@@ -10,9 +10,7 @@ const session = require('koa-generic-session')
 const JWT = require('koa-jwt')
 
 const index = require('./routes/index')
-const user = require('./routes/view/user')
 const error = require('./routes/view/error')
-const userApi = require('./routes/api/user')
 const { SECRET } = require('./conf/constants')
 
 const {REDIS_CONF} = require('./conf/db')
@@ -21,11 +19,7 @@ const {isProd} = require('./utils/env')
 app.use(JWT({
   secret : SECRET
 }).unless({
-  // path : [/^\/users\/login\/test/]   // 自定义哪些目录忽略 jwt 的验证，因为第一次登录，没有token
-     path : [/^\/login/, 
-             /^\/register/,
-             /^\/api\/user\/isExist/]   // 自定义哪些目录忽略 jwt 的验证，因为第一次登录，没有token
-                                          // 登录 和 注册不拦截
+  path : [/^\/users\/login\/test/]   // 自定义哪些目录忽略 jwt 的验证，因为第一次登录，没有token
 }))
 
 let onerroeConf = {}
@@ -79,9 +73,6 @@ app.use(session({
 
 // routes 路由注册
 app.use(index.routes(), index.allowedMethods())
-app.use(user.routes(),index.allowedMethods())
-app.use(userApi.routes(),index.allowedMethods())
-
 
 
 // 404路由在 放在最后

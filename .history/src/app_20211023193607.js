@@ -22,9 +22,7 @@ app.use(JWT({
   secret : SECRET
 }).unless({
   // path : [/^\/users\/login\/test/]   // 自定义哪些目录忽略 jwt 的验证，因为第一次登录，没有token
-     path : [/^\/login/, 
-             /^\/register/,
-             /^\/api\/user\/isExist/]   // 自定义哪些目录忽略 jwt 的验证，因为第一次登录，没有token
+     path : [/^\/login/, /^\/register/]   // 自定义哪些目录忽略 jwt 的验证，因为第一次登录，没有token
                                           // 登录 和 注册不拦截
 }))
 
@@ -80,7 +78,6 @@ app.use(session({
 // routes 路由注册
 app.use(index.routes(), index.allowedMethods())
 app.use(user.routes(),index.allowedMethods())
-app.use(userApi.routes(),index.allowedMethods())
 
 
 
