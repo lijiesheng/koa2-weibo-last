@@ -15,7 +15,8 @@
  }
 
  function doCrypto (content) {
-    const str = `password=${content}&key=${SRCRET_KEY}`;        
+    const str = `password=${content}&key=${SRCRET_KEY}`;
+    console.log('str ====>',str);        
     return _md5(str);
  }
 
