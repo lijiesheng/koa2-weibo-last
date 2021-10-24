@@ -6,6 +6,7 @@
 
  const { User } = require('../db/model/index')
  const { formatUser } = require('./_format')
+ const { doCrypto } = require('../utils/crpy')
 
  /**
   * 获取用户信息   异步
@@ -44,9 +45,10 @@
   * @param {*} city 
   */
  async function createUser({userName, password, nickName, gender, picture, city}) {
+     console.log('doCrypto(password)===>',doCrypto(password));
      let data = {
         userName,
-        password,
+        password: doCrypto(password),
         nickName : nickName ? nickName : userName,
         gender,
      }
