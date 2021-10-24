@@ -14,10 +14,9 @@
   * @param {*} data 校验数据
   */
  function validate(schema, data = {}) {
-    const valid = ajv.validate(schema, data) {
-        if ( !valid ) {
-            return ajv.errors[0];
-        }
+    const valid = ajv.validate(schema, data);
+    if ( !valid ) {
+        return ajv.errors[0];
     }
  }
 
