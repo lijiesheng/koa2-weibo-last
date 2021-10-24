@@ -3,11 +3,9 @@
  * @author ljs
  */
 
- const { getUserInfo, createUser } = require('../service/user')
+ const { getUserInfo } = require('../service/user')
  const { SuccessModel, ErrorModel} = require('../model/ResModel');
- const { registerUserNameExistInfo, 
-   registerUserNameNotExistInfo, 
-   registerFailInfo } = require('../model/ErrorInfo');
+ const { registerUserNameNotExistInfo } = require('../model/ErrorInfo');
 
  /**
   * 用户名是否存在
@@ -31,24 +29,12 @@
   * @param {*} picture 图像
   * @param {*} city 城市
   */
- async function register({userName, password, nickName, gender, picture, city}) {
+ async function register(userName, password, nickName, gender, picture, city) {
    // 判断用户名是否存在
-   const userInfo = await getUserInfo(userName);
-   if (userInfo) {
-      // 用户名存在
-      return new ErrorModel(registerUserNameExistInfo);
-   }
-   try {
-      await createUser({userName, password, nickName, gender, picture, city});
-      return new SuccessModel();
-   } catch (ex) {
-      console.error(ex.message, ex.stack);
-      return new ErrorModel(registerFailInfo);
-   }
+   
  }
 
 
  module.exports = {
-    isExist,
-    register
+    isExist
  }

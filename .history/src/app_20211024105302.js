@@ -18,17 +18,17 @@ const { SECRET } = require('./conf/constants')
 const {REDIS_CONF} = require('./conf/db')
 const {isProd} = require('./utils/env')
 
-app.use(JWT({
-  secret : SECRET
-}).unless({
-  // path : [/^\/users\/login\/test/]   // 自定义哪些目录忽略 jwt 的验证，因为第一次登录，没有token
-     path : [/^/, 
-             /^\/register/,
-             /^\/api\/user\/isExist/,
-             /^\/api\/user\/register/
-             ]   // 自定义哪些目录忽略 jwt 的验证，因为第一次登录，没有token
-                                          // 登录 和 注册不拦截
-}))
+// app.use(JWT({
+//   secret : SECRET
+// }).unless({
+//   // path : [/^\/users\/login\/test/]   // 自定义哪些目录忽略 jwt 的验证，因为第一次登录，没有token
+//      path : [/^/, 
+//              /^\/register/,
+//              /^\/api\/user\/isExist/,
+//              /^\/api\/user\/register/
+//              ]   // 自定义哪些目录忽略 jwt 的验证，因为第一次登录，没有token
+//                                           // 登录 和 注册不拦截
+// }))
 
 let onerroeConf = {}
 if (isProd) {

@@ -34,33 +34,15 @@
     return result.dataValues;
  }
 
- /**
-  * 
-  * @param {*} userName 用户名
-  * @param {*} password 密码
-  * @param {*} nickName 
-  * @param {*} gender 
-  * @param {*} picture 
-  * @param {*} city 
-  */
- async function createUser({userName, password, nickName, gender, picture, city}) {
-     let data = {
+ async function createUser(userName, password, nickName, gender, picture, city) {
+     const user = await User.create({
         userName,
         password,
         nickName : nickName ? nickName : userName,
-        gender,
-     }
-     if (picture) {
-        data.picture = picture
-     }
-     if (city) {
-        data.city = city;
-     }
-     const user = await User.create(data);
-     return user.dataValues;
+        gender
+     })
  }
 
  module.exports = {
-    getUserInfo,
-    createUser
+    getUserInfo
  }

@@ -43,7 +43,7 @@
   * @param {*} picture 
   * @param {*} city 
   */
- async function createUser({userName, password, nickName, gender, picture, city}) {
+ async function createUser(userName, password, nickName, gender, picture, city) {
      let data = {
         userName,
         password,

@@ -50,7 +50,7 @@
                 userNameTimeoutId = setTimeout(function() {
                     // 判断用户名是否已存在
                     var userName = $inputUserName.val()
-                     console.log('前端 哈哈哈哈');
+                    // console.log('前端 哈哈哈哈');
                     ajax.post('/api/user/isExist', {
                         userName
                     }, function(err, data) {
@@ -63,7 +63,7 @@
                             isUserNameExist = true
                         }
                     })
-                }, 1000)
+                }, 500)
             })
 
             // 监听验证密码输入

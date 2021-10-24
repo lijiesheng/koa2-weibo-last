@@ -22,11 +22,10 @@ app.use(JWT({
   secret : SECRET
 }).unless({
   // path : [/^\/users\/login\/test/]   // 自定义哪些目录忽略 jwt 的验证，因为第一次登录，没有token
-     path : [/^/, 
+     path : [/^\/login/, 
              /^\/register/,
-             /^\/api\/user\/isExist/,
-             /^\/api\/user\/register/
-             ]   // 自定义哪些目录忽略 jwt 的验证，因为第一次登录，没有token
+             /^\/register/,
+             /^\/api\/user\/isExist/]   // 自定义哪些目录忽略 jwt 的验证，因为第一次登录，没有token
                                           // 登录 和 注册不拦截
 }))
 

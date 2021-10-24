@@ -39,7 +39,7 @@
       return new ErrorModel(registerUserNameExistInfo);
    }
    try {
-      await createUser({userName, password, nickName, gender, picture, city});
+      await createUser(userName, password, nickName, gender, picture, city);
       return new SuccessModel();
    } catch (ex) {
       console.error(ex.message, ex.stack);

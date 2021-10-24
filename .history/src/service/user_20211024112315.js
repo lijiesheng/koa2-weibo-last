@@ -43,7 +43,7 @@
   * @param {*} picture 
   * @param {*} city 
   */
- async function createUser({userName, password, nickName, gender, picture, city}) {
+ async function createUser(userName, password, nickName, gender, picture, city) {
      let data = {
         userName,
         password,
@@ -53,10 +53,12 @@
      if (picture) {
         data.picture = picture
      }
-     if (city) {
-        data.city = city;
-     }
-     const user = await User.create(data);
+     if ()
+     const user = await User.create({
+        
+        picture ?,
+        city ?
+     })
      return user.dataValues;
  }
 
