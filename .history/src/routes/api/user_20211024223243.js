@@ -22,9 +22,9 @@
  })
 
  // 登录
- router.post('/login', async (ctx, next) => {
-     const {userName, password} = ctx.request.body;
-     ctx.body = await login({ctx, userName, password});
+ router.post('/', async (ctx, next) => {
+     const {} = ctx.request.body;
+     ctx.body = await login({userName, password});
  })
 
  module.exports = router;

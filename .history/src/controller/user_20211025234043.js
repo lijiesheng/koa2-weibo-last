@@ -49,7 +49,6 @@ const { formatUser } = require('../service/_format');
    }
  }
 
- // 这里需要用到 session 所以需要从路由传入 ctx
  async function login({ctx, userName, password}) {
     console.log("进来了");
     // 判断用户名是否存在

@@ -8,8 +8,7 @@
  const { registerUserNameExistInfo, 
    registerUserNameNotExistInfo, 
    registerFailInfo,loginPasswordNotExistInfo } = require('../model/ErrorInfo');
- const { doCrypto } = require('../utils/crpy');
-const { formatUser } = require('../service/_format');
+ const { doCrypto } = require('../utils/crpy')
 
  /**
   * 用户名是否存在
@@ -49,8 +48,7 @@ const { formatUser } = require('../service/_format');
    }
  }
 
- // 这里需要用到 session 所以需要从路由传入 ctx
- async function login({ctx, userName, password}) {
+ async function login({userName, password}) {
     console.log("进来了");
     // 判断用户名是否存在
     const userInfo = await getUserInfo(userName);
@@ -59,15 +57,13 @@ const { formatUser } = require('../service/_format');
       return new ErrorModel(registerUserNameNotExistInfo);
     }
     // 判断密码是否正确
+    
     const passwordCrypto = doCrypto(password);
+    console.log();
     if (passwordCrypto != userInfo.password) {
        return new ErrorModel(loginPasswordNotExistInfo);
     }
     console.log("成功");
-    // 将值存入到 session 中
-    if (ctx.session.userInfo == null) {
-       ctx.session.userInfo = userInfo;
-    }
     return new SuccessModel();
  }
 

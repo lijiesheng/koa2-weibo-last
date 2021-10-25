@@ -73,5 +73,10 @@ module.exports = {
     deleteBlogFailInfo: {
         errno: 11002,
         message: '删除微博失败，请重试'
-    }
+    },
+    // 密码错误
+    loginPasswordNotExistInfo: {
+        errno: 11003,
+        message: '用户名未存在'
+    },
 }

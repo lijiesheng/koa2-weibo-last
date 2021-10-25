@@ -23,7 +23,7 @@
     };
     // 查询
     const result = await User.findOne({
-        attributes : ['id', 'userName', 'password', 'nickName', 'gender', 'picture', 'city'],
+        attributes : ['id', 'userName', 'nickName', 'gender', 'picture', 'city'],
         where : whereOpt
     });
     if (result == null) {
