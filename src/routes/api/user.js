@@ -3,7 +3,8 @@
  * @author ljs
  */
 
- const router = require('koa-router')();
+const router = require('koa-router')();
+const redis = require('../../common/redis');
  const { isExist, register, login } = require('../../controller/user')
  const { userValidate } = require('../../validator/user')
  const { genValidator } = require('../../middlewares/validator');
@@ -23,7 +24,11 @@
 
  // 登录
  router.post('/login', async (ctx, next) => {
-     const {userName, password} = ctx.request.body;
+     const { userName, password } = ctx.request.body;
+     console.log('测试');
+     await redis.set('ljs', 'love tes');
+     let res = await redis.get('age');
+     console.log('res ===>',res);
      ctx.body = await login({ctx, userName, password});
  })
 
