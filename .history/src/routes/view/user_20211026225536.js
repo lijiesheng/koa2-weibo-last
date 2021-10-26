@@ -10,7 +10,7 @@
    * @param {*} ctx 
    */
   function getLoginInfo (ctx) {
-    let data = {
+    const data = {
       isLogin : false  // 默认未登录
     }
 
@@ -21,18 +21,23 @@
         userName : userInfo.userName
       }
     }
-    console.log('data====>',data);
     return data;
   }
 
   router.get('/login', async (ctx, next) => {
       // 返回给 login.js 页面的数据
-      await ctx.render('login', getLoginInfo(ctx));
+      await ctx.render('login',{
+        isLogin:
+        userName:
+      });
   })
 
   router.get('/register', async (ctx, next) => {
       // 返回给 register.js 页面的数据
-    await ctx.render('register',getLoginInfo(ctx)); 
+    await ctx.render('register',{
+        isLogin:
+        userName:
+    });
   })
 
 

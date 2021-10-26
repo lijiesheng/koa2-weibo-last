@@ -21,7 +21,6 @@
         userName : userInfo.userName
       }
     }
-    console.log('data====>',data);
     return data;
   }
 
