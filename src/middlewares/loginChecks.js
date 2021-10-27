@@ -29,3 +29,8 @@ const { loginCheckFailInfo } = require('../model/ErrorInfo');
     // 2、跳转到登录页面
     ctx.redirect('/login?url=' + encodeURIComponent(curUrl));
  }
+
+ module.exports = {
+    loginCheck,
+    loginRedirect
+ }
