@@ -62,7 +62,20 @@
      return user.dataValues;
  }
 
+ /**
+  * 
+  */
+ async function deleteUserService ({userName}) {
+     const user = await User.destroy({
+         where : {
+             userName
+         }
+     });
+     return user.dataValues;
+ }
+
  module.exports = {
     getUserInfo,
-    createUser
+    createUser,
+    deleteUserService
  }

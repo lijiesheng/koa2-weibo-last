@@ -19,10 +19,8 @@ const { formatUser } = require('../service/_format');
   * @param {*} userName 
   */
  async function isExist(userName) {
-   console.log("userName service ===>", userName);
     const userInfo = await getUserInfo(userName);
     if (userInfo) {
-       console.log('查询测试 是否存在');
        return new SuccessModel(userInfo);
     } 
     return new ErrorModel(registerUserNameNotExistInfo);

@@ -24,7 +24,7 @@ const redis = require('../../common/redis');
  router.post('/isExist', async (ctx, next) => {
      console.log("用户名是否存在   进来了");
      const { userName } = ctx.request.body;
-     console.log("userName controller ===>", userName);
+     console.log("userName ===>", userName);
      let res = await isExist(userName);
      console.log("res ====> ", res);
      ctx.body = res;

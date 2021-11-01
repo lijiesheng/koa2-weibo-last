@@ -22,12 +22,8 @@ const redis = require('../../common/redis');
 
  // 用户名是否存在
  router.post('/isExist', async (ctx, next) => {
-     console.log("用户名是否存在   进来了");
      const { userName } = ctx.request.body;
-     console.log("userName controller ===>", userName);
-     let res = await isExist(userName);
-     console.log("res ====> ", res);
-     ctx.body = res;
+     ctx.body = await isExist(userName);
  })
 
  // 登录
