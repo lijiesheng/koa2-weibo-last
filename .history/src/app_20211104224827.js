@@ -15,8 +15,6 @@ const index = require('./routes/index')
 const user = require('./routes/view/user')
 const error = require('./routes/view/error')
 const userApi = require('./routes/api/user')
-const utilsApi = require('./routes/api/utils')
-
 const { SECRET } = require('./conf/constants')
 
 const {REDIS_CONF} = require('./conf/db')
@@ -91,10 +89,12 @@ app.use(session({
 
 // routes 路由注册
 app.use(index.routes(), index.allowedMethods())
-app.use(user.routes(), user.allowedMethods())
-app.use(userApi.routes(), userApi.allowedMethods())
-app.use(utilsApi.routes(), utilsApi.allowedMethods())
- 
+app.use(user.routes(),index.allowedMethods())
+app.use(userApi.routes(),index.allowedMethods())
+app.use(userApi.routes(),index.allowedMethods())
+
+
+
 // 404路由在 放在最后
 app.use(error.routes(), error.allowedMethods()) 
 

@@ -37,7 +37,7 @@
   })
 
   /**
-   * 先登录，然后才能修改
+   * 先登录，然后才能
    */
   router.get('/setting', loginRedirect, async (ctx,next) => {
     await ctx.render('setting', ctx.session.userInfo);

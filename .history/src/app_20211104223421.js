@@ -1,5 +1,4 @@
 const Koa = require('koa')
-const path = require('path')
 const app = new Koa()
 const views = require('koa-views')
 const json = require('koa-json')
@@ -9,14 +8,11 @@ const logger = require('koa-logger')
 const redisStore = require('koa-redis')
 const session = require('koa-generic-session')
 const JWT = require('koa-jwt')
-const koaStatic = require('koa-static')
 
 const index = require('./routes/index')
 const user = require('./routes/view/user')
 const error = require('./routes/view/error')
 const userApi = require('./routes/api/user')
-const utilsApi = require('./routes/api/utils')
-
 const { SECRET } = require('./conf/constants')
 
 const {REDIS_CONF} = require('./conf/db')
@@ -54,16 +50,15 @@ app.use(bodyparser({
 app.use(json())
 app.use(logger())   // 打印日志
 
-// app.use(koaStatic(__dirname + '/public'))
-app.use(koaStatic(path.join(__dirname, 'public')))
+// app.use(require('koa-static')(__dirname + '/public'))
 
 // 找到上传文件的地址,在项目启动后，可以直接运行
-// app.use(koaStatic(__dirname + '../uploadFiles'))
-app.use(koaStatic(path.join(__dirname, '..' , 'uploadFiles')))
+app.use(require('koa-static')(__dirname + '../uploadFiles'))
 
 app.use(views(__dirname + '/views', {
   extension: 'ejs'
 }))
+
 
 // session 配置
 // 自动将 session 的值key的值存入到 redis 中
@@ -91,10 +86,11 @@ app.use(session({
 
 // routes 路由注册
 app.use(index.routes(), index.allowedMethods())
-app.use(user.routes(), user.allowedMethods())
-app.use(userApi.routes(), userApi.allowedMethods())
-app.use(utilsApi.routes(), utilsApi.allowedMethods())
- 
+app.use(user.routes(),index.allowedMethods())
+app.use(userApi.routes(),index.allowedMethods())
+
+
+
 // 404路由在 放在最后
 app.use(error.routes(), error.allowedMethods()) 
 

@@ -3,8 +3,9 @@
  * @author ljs
  */
 
+const { ne } = require('sequelize/types/lib/operators');
+
   const router = require('koa-router')();
-  const { loginRedirect }= require('../../middlewares/loginChecks');
 
   /**
    * 获取登录信息
@@ -36,11 +37,8 @@
     await ctx.render('register',getLoginInfo(ctx)); 
   })
 
-  /**
-   * 先登录，然后才能修改
-   */
-  router.get('/setting', loginRedirect, async (ctx,next) => {
-    await ctx.render('setting', ctx.session.userInfo);
+  router.get('/setting', async (ctx,next) => {
+    await ctx.render('setting', );
   })
 
   module.exports = router;  

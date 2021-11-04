@@ -36,9 +36,6 @@
     await ctx.render('register',getLoginInfo(ctx)); 
   })
 
-  /**
-   * 先登录，然后才能修改
-   */
   router.get('/setting', loginRedirect, async (ctx,next) => {
     await ctx.render('setting', ctx.session.userInfo);
   })
