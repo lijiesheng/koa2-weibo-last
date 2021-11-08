@@ -104,17 +104,10 @@
     if (password) {
         whereData.password = password;
     }
-
-    // 执行修改
-    const result = await User.update(updateData, {
-        where : whereData
-    })
-    return result[0] > 0;  // 修改的行数
 }
 
  module.exports = {
     getUserInfo,
     createUser,
-    deleteUserService,
-    updateUser
+    deleteUserService
  }

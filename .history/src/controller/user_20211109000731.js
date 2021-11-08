@@ -9,7 +9,6 @@
    registerUserNameNotExistInfo, 
    registerFailInfo,
    loginPasswordNotExistInfo,
-   changeInfoFailInfo ,
    deleteUserFailInfo } = require('../model/ErrorInfo');
  const { doCrypto } = require('../utils/crpy');
 const { formatUser } = require('../service/_format');
@@ -129,7 +128,7 @@ const { formatUser } = require('../service/_format');
       // 返回
       return new SuccessModel();
    }
-   return new ErrorModel(changeInfoFailInfo);
+   return new ErrorModel();
  }
 
  module.exports = {

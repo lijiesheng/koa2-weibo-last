@@ -28,7 +28,6 @@ const MAX_SIZE = 1024 * 1024 * 1024
 // 是否需要创建目录
 // 放在这里，只用执行一次，下一次执行服务器重启
 if (!(fse.pathExistsSync(uploadDir))) {
-    fse.mkdirsSync(uploadDir);
     //await fse.mkdirs(uploadDir);
 }
 

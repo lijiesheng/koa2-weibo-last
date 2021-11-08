@@ -109,12 +109,11 @@
     const result = await User.update(updateData, {
         where : whereData
     })
-    return result[0] > 0;  // 修改的行数
+    return result[0] > 0;
 }
 
  module.exports = {
     getUserInfo,
     createUser,
-    deleteUserService,
-    updateUser
+    deleteUserService
  }

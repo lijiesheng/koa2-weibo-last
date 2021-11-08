@@ -5,7 +5,7 @@
 
 const router = require('koa-router')();
 const redis = require('../../common/redis');
- const { isExist, register, login, deleteUser, changeInfo } = require('../../controller/user')
+ const { isExist, register, login, deleteUser } = require('../../controller/user')
  const { userValidate } = require('../../validator/user')
  const { genValidator } = require('../../middlewares/validator');
  router.prefix('/api/user');
@@ -52,23 +52,7 @@ const redis = require('../../common/redis');
 
  /**
   * 修改个人信息
-  * 修改用 patch
-  * 新增用 post
   */
- router.patch('/changeInfo', 
-        loginCheck, 
-        genValidator(userValidate) , 
-        async(ctx, next) => {
-            
-            const { nickName, city, picture } = ctx.request.body;
-            // controller
-            await changeInfo(ctx, 
-                {
-                    nickName,
-                    city,
-                    picture
-                }
-            );
- } )
+ router.post()
 
  module.exports = router;

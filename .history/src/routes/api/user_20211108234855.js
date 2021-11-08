@@ -5,7 +5,7 @@
 
 const router = require('koa-router')();
 const redis = require('../../common/redis');
- const { isExist, register, login, deleteUser, changeInfo } = require('../../controller/user')
+ const { isExist, register, login, deleteUser } = require('../../controller/user')
  const { userValidate } = require('../../validator/user')
  const { genValidator } = require('../../middlewares/validator');
  router.prefix('/api/user');
@@ -60,15 +60,7 @@ const redis = require('../../common/redis');
         genValidator(userValidate) , 
         async(ctx, next) => {
             
-            const { nickName, city, picture } = ctx.request.body;
-            // controller
-            await changeInfo(ctx, 
-                {
-                    nickName,
-                    city,
-                    picture
-                }
-            );
+            const { userName, city, picture } = ctx.request.body;
  } )
 
  module.exports = router;

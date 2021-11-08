@@ -74,47 +74,16 @@
      return user.dataValues;
  }
 
-/**
- * 
- * @param {*} param0 修改参数
- * @param {*} param1 修改条件
- */
+ /**
+  * 
+  */
  async function updateUser (
-     {newPassword, newNickName, newPicture, newCity}, 
-     { userName, password }
-) {
-    // 拼接修改内容
-    const updateData = {};
-    if (newPassword) {
-        updateData.password = newPassword;
-    }
-    if (newNickName) {
-        updateData.newNickName = newNickName;
-    }
-    if (newPicture) {
-        updateData.newPicture = newPicture;
-    }
-    if (newCity) {
-        updateData.newCity = newCity;
-    }
-    // 拼接查询条件
-    const whereData = {
-        userName
-    }
-    if (password) {
-        whereData.password = password;
-    }
-
-    // 执行修改
-    const result = await User.update(updateData, {
-        where : whereData
-    })
-    return result[0] > 0;  // 修改的行数
-}
+     {}, 
+     {userName, password}
+)
 
  module.exports = {
     getUserInfo,
     createUser,
-    deleteUserService,
-    updateUser
+    deleteUserService
  }

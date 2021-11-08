@@ -3,13 +3,12 @@
  * @author ljs
  */
 
- const { getUserInfo, createUser, deleteUserService, updateUser } = require('../service/user')
+ const { getUserInfo, createUser, deleteUserService } = require('../service/user')
  const { SuccessModel, ErrorModel} = require('../model/ResModel');
  const { registerUserNameExistInfo, 
    registerUserNameNotExistInfo, 
    registerFailInfo,
    loginPasswordNotExistInfo,
-   changeInfoFailInfo ,
    deleteUserFailInfo } = require('../model/ErrorInfo');
  const { doCrypto } = require('../utils/crpy');
 const { formatUser } = require('../service/_format');
@@ -109,33 +108,16 @@ const { formatUser } = require('../service/_format');
    if (!nickName) {
       nickName = userName;
    }
-   
-   // service 
-   const result = await updateUser(
-         {
-            newNickName : nickName, 
-            newCity : city, 
-            newPicture : picture
-         }, 
-         {userName}
-   );
-   if (result) {
-      // 执行成功，更新session
-      Object.assign(ctx.session.userInfo, {
-         nickName,
-         city,
-         picture
-      })
-      // 返回
-      return new SuccessModel();
+   if (userInfo == null) {
+      // 用户名不存在
+      return new ErrorModel(registerUserNameNotExistInfo);
    }
-   return new ErrorModel(changeInfoFailInfo);
+
  }
 
  module.exports = {
     isExist,
     register,
     login,
-    deleteUser,
-    changeInfo
+    deleteUser
  }

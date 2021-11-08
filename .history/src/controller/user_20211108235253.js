@@ -3,13 +3,12 @@
  * @author ljs
  */
 
- const { getUserInfo, createUser, deleteUserService, updateUser } = require('../service/user')
+ const { getUserInfo, createUser, deleteUserService } = require('../service/user')
  const { SuccessModel, ErrorModel} = require('../model/ResModel');
  const { registerUserNameExistInfo, 
    registerUserNameNotExistInfo, 
    registerFailInfo,
    loginPasswordNotExistInfo,
-   changeInfoFailInfo ,
    deleteUserFailInfo } = require('../model/ErrorInfo');
  const { doCrypto } = require('../utils/crpy');
 const { formatUser } = require('../service/_format');
@@ -104,38 +103,18 @@ const { formatUser } = require('../service/_format');
   * @param {*} ctx 修改完基本信息后，要将 session 的值变一下
   * @param {*} param1 
   */
- async function changeInfo(ctx, { nickName, city, picture }) {
+ async function changeInfo(ctx, { userName, city, picture }) {
    const { userName } = ctx.session.userInfo;
-   if (!nickName) {
-      nickName = userName;
+   if (userInfo == null) {
+      // 用户名不存在
+      return new ErrorModel(registerUserNameNotExistInfo);
    }
-   
-   // service 
-   const result = await updateUser(
-         {
-            newNickName : nickName, 
-            newCity : city, 
-            newPicture : picture
-         }, 
-         {userName}
-   );
-   if (result) {
-      // 执行成功，更新session
-      Object.assign(ctx.session.userInfo, {
-         nickName,
-         city,
-         picture
-      })
-      // 返回
-      return new SuccessModel();
-   }
-   return new ErrorModel(changeInfoFailInfo);
+
  }
 
  module.exports = {
     isExist,
     register,
     login,
-    deleteUser,
-    changeInfo
+    deleteUser
  }

@@ -62,13 +62,7 @@ const redis = require('../../common/redis');
             
             const { nickName, city, picture } = ctx.request.body;
             // controller
-            await changeInfo(ctx, 
-                {
-                    nickName,
-                    city,
-                    picture
-                }
-            );
+            await changeInfo(ctx, );
  } )
 
  module.exports = router;
