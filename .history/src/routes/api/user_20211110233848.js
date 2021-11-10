@@ -90,8 +90,7 @@ const redis = require('../../common/redis');
  * 退出登录
  */
 router.post('/logout', loginCheck, async (ctx, next) => {
-    console.log("进来了")
-    ctx.body = await logout(ctx);
+    await logout(ctx);
 })
 
 

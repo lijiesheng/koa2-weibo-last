@@ -89,13 +89,13 @@
         updateData.password = newPassword;
     }
     if (newNickName) {
-        updateData.newNickName = newNickName;
+        updateData.nickName = newNickName;
     }
     if (newPicture) {
-        updateData.newPicture = newPicture;
+        updateData.picture = newPicture;
     }
     if (newCity) {
-        updateData.newCity = newCity;
+        updateData.city = newCity;
     }
     // 拼接查询条件
     const whereData = {
@@ -104,7 +104,8 @@
     if (password) {
         whereData.password = password;
     }
-
+    console.log("updateData===>",updateData);
+    console.log("whereData===>",whereData);
     // 执行修改
     const result = await User.update(updateData, {
         where : whereData

@@ -10,7 +10,7 @@
    registerFailInfo,
    loginPasswordNotExistInfo,
    changeInfoFailInfo ,
-   deleteUserFailInfo , changePasswordFailInfo, loginFailInfo} = require('../model/ErrorInfo');
+   deleteUserFailInfo , changePasswordFailInfo} = require('../model/ErrorInfo');
  const { doCrypto } = require('../utils/crpy');
 const { formatUser } = require('../service/_format');
 
@@ -70,7 +70,7 @@ const { formatUser } = require('../service/_format');
     const passwordCrypto = doCrypto(password);
     if (passwordCrypto != userInfo.password) {
        console.log('密码不正确');
-       return new ErrorModel(loginFailInfo);
+       return new ErrorModel(loginPasswordNotExistInfo);
     }
     console.log("成功");
     // 将值存入到 session 中
@@ -148,7 +148,7 @@ const { formatUser } = require('../service/_format');
        {
       newPassword : doCrypto(newPassword)
       }, {
-         userName : userInfo.userName,
+         userName,
          password : doCrypto(password)
       });
     if (result) {
@@ -161,17 +161,11 @@ const { formatUser } = require('../service/_format');
     return new ErrorModel(changeInfoFailInfo);
  }
 
- async function logout (ctx) {
-    delete ctx.session.userInfo
-    return new SuccessModel()
- }
-
  module.exports = {
     isExist,
     register,
     login,
     deleteUser,
     changeInfo,
-    changePassword,
-    logout
+    changePassword
  }

@@ -61,7 +61,7 @@ const redis = require('../../common/redis');
         async(ctx, next) => {
             const { nickName, city, picture } = ctx.request.body;
             // controller
-            ctx.body = await changeInfo(ctx, 
+            await changeInfo(ctx, 
                 {
                     nickName,
                     city,
@@ -90,8 +90,7 @@ const redis = require('../../common/redis');
  * 退出登录
  */
 router.post('/logout', loginCheck, async (ctx, next) => {
-    console.log("进来了")
-    ctx.body = await logout(ctx);
+    await logout(ctx);
 })
 
 

@@ -161,17 +161,11 @@ const { formatUser } = require('../service/_format');
     return new ErrorModel(changeInfoFailInfo);
  }
 
- async function logout (ctx) {
-    delete ctx.session.userInfo
-    return new SuccessModel()
- }
-
  module.exports = {
     isExist,
     register,
     login,
     deleteUser,
     changeInfo,
-    changePassword,
-    logout
+    changePassword
  }

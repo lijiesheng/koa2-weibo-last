@@ -5,7 +5,7 @@
 
 const router = require('koa-router')();
 const redis = require('../../common/redis');
- const { isExist, register, login, deleteUser, changeInfo, changePassword, logout } = require('../../controller/user')
+ const { isExist, register, login, deleteUser, changeInfo, changePassword } = require('../../controller/user')
  const { userValidate } = require('../../validator/user')
  const { genValidator } = require('../../middlewares/validator');
  router.prefix('/api/user');
@@ -61,7 +61,7 @@ const redis = require('../../common/redis');
         async(ctx, next) => {
             const { nickName, city, picture } = ctx.request.body;
             // controller
-            ctx.body = await changeInfo(ctx, 
+            await changeInfo(ctx, 
                 {
                     nickName,
                     city,
@@ -80,7 +80,7 @@ const redis = require('../../common/redis');
             const {password , newPassword} = ctx.request.body;
             // controller
             // 修改密码也会改变 session， 所以要传入 ctx
-            ctx.body = await changePassword(ctx, {
+            await changePassword(ctx, {
                 newPassword,
                 password
     })
@@ -89,10 +89,7 @@ const redis = require('../../common/redis');
 /**
  * 退出登录
  */
-router.post('/logout', loginCheck, async (ctx, next) => {
-    console.log("进来了")
-    ctx.body = await logout(ctx);
-})
+router.post('/logout', loginCheck, )
 
 
 module.exports = router;

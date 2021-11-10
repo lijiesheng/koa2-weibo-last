@@ -10,7 +10,7 @@
    registerFailInfo,
    loginPasswordNotExistInfo,
    changeInfoFailInfo ,
-   deleteUserFailInfo , changePasswordFailInfo, loginFailInfo} = require('../model/ErrorInfo');
+   deleteUserFailInfo , changePasswordFailInfo} = require('../model/ErrorInfo');
  const { doCrypto } = require('../utils/crpy');
 const { formatUser } = require('../service/_format');
 
@@ -70,7 +70,7 @@ const { formatUser } = require('../service/_format');
     const passwordCrypto = doCrypto(password);
     if (passwordCrypto != userInfo.password) {
        console.log('密码不正确');
-       return new ErrorModel(loginFailInfo);
+       return new ErrorModel(loginPasswordNotExistInfo);
     }
     console.log("成功");
     // 将值存入到 session 中
@@ -113,11 +113,12 @@ const { formatUser } = require('../service/_format');
    // service 
    const result = await updateUser(
          {
-            newNickName : nickName, 
-            newCity : city, 
-            newPicture : picture
+            newPassword
          }, 
-         {userName}
+         {
+            userName,
+            
+         }
    );
    if (result) {
       // 执行成功，更新session
@@ -143,14 +144,16 @@ const { formatUser } = require('../service/_format');
        // 原来的密码不正确
       return new ErrorModel(changePasswordFailInfo);
     }
+    // 第二步 更新session
+     Object.assign(ctx.session.userInfo, {
+      
+   })
+
     // 第二步同步到数据库
-    const result = await updateUser(
-       {
-      newPassword : doCrypto(newPassword)
-      }, {
-         userName : userInfo.userName,
-         password : doCrypto(password)
-      });
+    const result = await updateUser({
+      newPassword,
+      password
+    });
     if (result) {
        // 执行成功，更新session
        Object.assign(ctx.session.userInfo, {
@@ -161,17 +164,11 @@ const { formatUser } = require('../service/_format');
     return new ErrorModel(changeInfoFailInfo);
  }
 
- async function logout (ctx) {
-    delete ctx.session.userInfo
-    return new SuccessModel()
- }
-
  module.exports = {
     isExist,
     register,
     login,
     deleteUser,
     changeInfo,
-    changePassword,
-    logout
+    changePassword
  }
