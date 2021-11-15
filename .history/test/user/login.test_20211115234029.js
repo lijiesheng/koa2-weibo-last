@@ -58,7 +58,6 @@ test ('json schema 检测， 非法的格式，注册应该失败', async() => {
 
 // 登录
 test('登录应该成功', async () => {
-    console.log("开始测试 登录应该成功")
     const res = await server
         .post('/api/user/login')
         .send(testUserInfo);
