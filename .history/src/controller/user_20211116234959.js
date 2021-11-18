@@ -138,7 +138,7 @@ const { formatUser } = require('../service/_format');
  async function changePassword(ctx, { newPassword,password }) {
     const userInfo = ctx.session.userInfo;
     // 第一步判断密码是否相同
-    console.log("userInfo changePassword ==>",ctx.session.userInfo);
+    console.log("userInfo ==>",ctx.session.userInfo);
     if (doCrypto(password) != userInfo.password) {
        // 原来的密码不正确
       return new ErrorModel(changePasswordFailInfo);

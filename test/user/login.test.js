@@ -69,7 +69,7 @@ test('登录应该成功', async () => {
 })
 
 // 修改基本信息
-test ('修改基本信息应该成功'，async () => {
+test ('修改基本信息应该成功', async () => {
     const res = await server.patch('/api/user/changeInfo').send({
         nickName : '测试昵称',
         city : '测试城市',
@@ -81,8 +81,9 @@ test ('修改基本信息应该成功'，async () => {
 
 // 修改用户密码
 test ('修改密码应该成功', async () => {
+    console.log("测试 修改密码");
     const res = await server.patch('/api/user/changePassword').send({
-        password ,
+        password : testUserInfo.password ,
         newPassword: `p_${Date.now()}`
     })
     expect(res.body.errno).toBe(0)

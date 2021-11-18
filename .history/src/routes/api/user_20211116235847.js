@@ -12,7 +12,7 @@ const redis = require('../../common/redis');
  const {isTest} = require('../../utils/env');
  const { loginCheck }= require('../../middlewares/loginChecks');
 
- // 注册路由
+ // 注册
  router.post('/register', genValidator(userValidate) , async (ctx, next) => {
      console.log('controller 测试进来了');
      const { userName , password , gender} = ctx.request.body;
@@ -55,30 +55,26 @@ const redis = require('../../common/redis');
   * 新增用 post
   */
  router.patch('/changeInfo', loginCheck, genValidator(userValidate) , async(ctx, next) => {
-            const { nickName, city, picture } = ctx.request.body;
-            // controller
-            ctx.body = await changeInfo(ctx, 
-                {
-                    nickName,
-                    city,
-                    picture
-                }
-            );
+        const { nickName, city, picture } = ctx.request.body;
+        ctx.body = await changeInfo(ctx, 
+            {
+                nickName,
+                city,
+                picture
+            }
+        );
  } )
 
  /**
   * 修改密码
   */
- router.patch ('/changePassword', 
-        loginCheck, 
-        genValidator(userValidate),
-        async(ctx, next) => { 
-            const {password , newPassword} = ctx.request.body;
-            // controller
-            // 修改密码也会改变 session， 所以要传入 ctx
-            ctx.body = await changePassword(ctx, {
-                newPassword,
-                password
+ router.patch ('/changePassword', loginCheck, genValidator(userValidate),async(ctx, next) => { 
+    const {password , newPassword} = ctx.request.body;
+    // controller
+    // 修改密码也会改变 session， 所以要传入 ctx
+    ctx.body = await changePassword(ctx, {
+        newPassword,
+        password
     })
 }) 
 

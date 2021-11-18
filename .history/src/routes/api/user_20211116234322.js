@@ -22,7 +22,6 @@ const redis = require('../../common/redis');
 
  // 用户名是否存在
  router.post('/isExist', async (ctx, next) => {
-     console.log("用户名是否存在   进来了");
      const { userName } = ctx.request.body;
      console.log("userName controller ===>", userName);
      let res = await isExist(userName);
@@ -55,28 +54,21 @@ const redis = require('../../common/redis');
   * 修改用 patch
   * 新增用 post
   */
- router.patch('/changeInfo', 
-        loginCheck, 
-        genValidator(userValidate) , 
-        async(ctx, next) => {
-            const { nickName, city, picture } = ctx.request.body;
-            // controller
-            ctx.body = await changeInfo(ctx, 
-                {
-                    nickName,
-                    city,
-                    picture
-                }
-            );
+ router.patch('/changeInfo', loginCheck, genValidator(userValidate) , async(ctx, next) => {
+        const { nickName, city, picture } = ctx.request.body;
+        ctx.body = await changeInfo(ctx, 
+            {
+                nickName,
+                city,
+                picture
+            }
+        );
  } )
 
  /**
   * 修改密码
   */
- router.patch ('/changePassword', 
-        loginCheck, 
-        genValidator(userValidate),
-        async(ctx, next) => { 
+ router.patch ('/changePassword', loginCheck, genValidator(userValidate),async(ctx, next) => { 
             const {password , newPassword} = ctx.request.body;
             // controller
             // 修改密码也会改变 session， 所以要传入 ctx
