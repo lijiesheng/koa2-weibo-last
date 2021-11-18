@@ -4,6 +4,6 @@
  */
 const User = require('./User');
 
-module.exports = { 
+module.exports = {
     User
 }
