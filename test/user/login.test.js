@@ -70,12 +70,14 @@ test('登录应该成功', async () => {
 
 // 修改基本信息
 test ('修改基本信息应该成功', async () => {
+    console.log("登录后的 cookie ==>", COOKIE)
     const res = await server.patch('/api/user/changeInfo').send({
         nickName : '测试昵称',
         city : '测试城市',
         picture : '/test.png'
     }).set('cookie', COOKIE)
     // 有了 cookie 证明已经登录了
+    console.log("修改密码后的 COOKIE ====》", COOKIE)
     expect(res.body.errno).toBe(0)
 })
 
@@ -85,11 +87,11 @@ test ('修改密码应该成功', async () => {
     const res = await server.patch('/api/user/changePassword').send({
         password : testUserInfo.password ,
         newPassword: `p_${Date.now()}`
-    })
+    }).set('cookie', COOKIE)
     expect(res.body.errno).toBe(0)
 })
 
-// 删除 ，删除之前会有个 session 
+// // 删除 ，删除之前会有个 session
 test ('删除用户', async () => {
     const res = await server.post('/api/user/delete').set('cookie', COOKIE);
     expect(res.body.errno).toBe(0);
@@ -106,7 +108,7 @@ test ('查询用户是否存在, 不应该存在', async () => {
     const res = await server
         .post('/api/user/isExist')
         .send(testUserInfo);
-    
+
     expect(res.body.errno).not.toBe(0);
 })
 

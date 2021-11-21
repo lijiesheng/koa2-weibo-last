@@ -12,6 +12,7 @@
    changeInfoFailInfo ,
    deleteUserFailInfo , changePasswordFailInfo, loginFailInfo} = require('../model/ErrorInfo');
  const { doCrypto } = require('../utils/crpy');
+ const { redis } = require('../common/redis')
 const { formatUser } = require('../service/_format');
 
  /**
@@ -59,7 +60,7 @@ const { formatUser } = require('../service/_format');
 
  // 这里需要用到 session 所以需要从路由传入 ctx
  async function login({ctx, userName, password}) {
-    console.log("进来了");
+
     // 判断用户名是否存在
     const userInfo = await getUserInfo(userName);
     if (userInfo == null) {
@@ -76,6 +77,7 @@ const { formatUser } = require('../service/_format');
     // 将值存入到 session 中
     if (ctx.session.userInfo == null) {
        ctx.session.userInfo = userInfo;
+       console.log("登录后的 session.userInfo ", ctx.session.userInfo)
     }
     return new SuccessModel();
  }
@@ -126,6 +128,7 @@ const { formatUser } = require('../service/_format');
          city,
          picture
       })
+       console.log("修改基本信息后的 session.userInfo ", ctx.session.userInfo)
       // 返回
       return new SuccessModel();
    }
@@ -163,8 +166,22 @@ const { formatUser } = require('../service/_format');
  }
 
  async function logout (ctx) {
-    delete ctx.session.userInfo
-    return new SuccessModel()
+     let ids =  "weibo.sess:" + ctx.cookies.get("weibo.sid")
+     console.log("keys ==>",ids);
+     await delKey(ids);
+     delete ctx.session.userInfo
+     await  delKey(ids);
+     console.log(await redis.get(ids));
+     return new SuccessModel()
+ }
+
+ async function delKey(key) {
+     let res = await redis.del(key)
+     if (res > 0) {
+         console.log("删除成功")
+     } else {
+         console.log("删除失败")
+     }
  }
 
  module.exports = {
