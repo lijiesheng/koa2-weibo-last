@@ -4,7 +4,7 @@
  */
 
  const seq = require('../seq');
-
+ const Blog = require('./Blog')
  const { STRING, INTEGER, DECIMAL} = require('../type')
 
  // User 模型 表名是 users
@@ -40,5 +40,6 @@
         comment : '城市'
      }
  })
+
 
  module.exports = User
